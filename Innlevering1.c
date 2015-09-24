@@ -1,12 +1,13 @@
 //Marius H. Skeie og Bente Ottersen
 
 #include <stdio.h>
+#include <string.h>
 
 int main(int argc, char *argv[])
 {
 	int numbersFromFile[200000];
 	int count = 0;
-	int *search;
+	int search;
 	char sortingMethod[50];
 
 	FILE *file = fopen(argv[1], "r");
@@ -15,7 +16,6 @@ int main(int argc, char *argv[])
 	while(!feof (file))
 	{
 		fscanf(file, "%d", &i);
-		//printf("%d ", i);
 		numbersFromFile[count] = i;
 		count++;
 	}
@@ -30,12 +30,12 @@ int main(int argc, char *argv[])
 	}
 
 	//Sorting
-	/*printf("\n\nWhich sorting method do you want to use (bubble, selection, quick)? ");
-	*scanf("%s", sortingMethod);
-	*printf("You chose %s .", sortingMethod);
-	*
-	*if(sortingMethod == "bubble")
-	{*/
+	printf("\n\nWhich sorting method do you want to use (bubble, selection, insertion)? ");
+	scanf("%s", sortingMethod);
+	printf("You chose %s.", sortingMethod);
+
+	if(strcmp(sortingMethod, "bubble") == 0)
+	{
 		printf("\n\nBubble sort:\n");
 		for(int x = 0; x < count; x++)
 		{
@@ -54,7 +54,8 @@ int main(int argc, char *argv[])
 		{
  			printf("%d ", numbersFromFile[j]);
 		}
-	if(sortingMethod == "selection" || sortingMethod == "s")
+	}
+	else if(strcmp(sortingMethod, "selection") == 0)
 	{
 		printf("\n\nSelection sort:\n");
 		for(int x = 0; x < count; x++)
@@ -76,19 +77,59 @@ int main(int argc, char *argv[])
 		{
 			printf("%d ", numbersFromFile[j]);
 		}
-
-		printf("\n");
 	}
-	/*}
-	else 
+	else if(strcmp(sortingMethod, "insertion") == 0)
 	{
-		printf("Blabla");
-	}*/
+		printf("\n\nInsertion sort:\n");
+		for(int c = 1 ; c <= count - 1; c++) {
+   			int d = c;
+
+			while(d > 0 && numbersFromFile[d] < numbersFromFile[d-1])
+			{
+      				int t = numbersFromFile[d];
+      				numbersFromFile[d] = numbersFromFile[d-1];
+				numbersFromFile[d-1] = t;
+				d--;
+			}
+		}
+		for(int j = 0; j < count; j++)
+		{
+			printf("%d ", numbersFromFile[j]);
+		}
+	}
 	
 	//Search
-	printf("\nPlease input an integer for search: ");
-	scanf("%d", *search);
-	printf("\nYou're searching for %d .", *search);	
+	printf("\n\nPlease input an integer for search: ");
+	scanf("%d", &search);
+	printf("\nYou're searching for %d.\n", search);	
+	
+	if(search == 0)
+	{
+		//Quit program
+	}
+	//else binarySearch()d;
 
-return 0;
+	//Binary search
+	int first = 0;
+	int last = count - 1;
+	int middle = (first + last) / 2;
+
+	while(first <= last)
+	{
+		if(numbersFromFile[middle] < search)
+			first = middle + 1;
+		else if(numbersFromFile[middle] == search)
+		{
+			printf("%d found at location %d.\n", search, middle + 1);
+			break;
+		}
+		else
+			last = middle - 1;
+
+		middle = (first + last) / 2;
+	}
+	if (first > last)
+		printf("%d is not in the list.\n", search);
+
+	return 0;
 }
