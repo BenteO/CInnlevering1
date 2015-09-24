@@ -1,6 +1,7 @@
 //Marius H. Skeie og Bente Ottersen
 //Sjekk ut struct
 //Bruke to arrays til å finne index fra original array
+//Install sealion
 
 #include <stdio.h>
 #include <string.h>
