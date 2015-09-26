@@ -6,7 +6,6 @@
 #include <string.h>
 
 //Declaring the functions to be able to use them in main
-void printArray(int * numbersFromFile, int count);
 int readFromFile(int *numbersFromFile, char *filename, int *originalIndex);
 void bubbleSort(int count, int *numbersFromFile, int *originalIndex);
 void selectionSort(int count, int *numbersFromFile, int *originalIndex);
@@ -62,8 +61,7 @@ int main(int argc, char *argv[])
 
 		}
 	else
-	{
-		//printf("You're searching for %d.\n\n", search);	
+	{	
 		binarySearch(count, numbersFromFile, search, originalIndex);
 	}
 
@@ -72,18 +70,8 @@ int main(int argc, char *argv[])
 	return 0;
 }
 
-//Function to print an array
-void printArray(int * numbersFromFile, int count)
-{
-	for(int i = 0; i < count; i++)
-	{
-		printf("%d ", numbersFromFile[i]);
-	}
-	printf("\n");
-}
-
 /*
-*Function to read integers from a text file, adds them to an array and prints the integers in the terminal
+*Function to read integers from a text file and adds them to an array
 *It saves the index of the integers in another array, using localCount
 *Returns the amount of integers
 */
@@ -102,8 +90,6 @@ int readFromFile(int *numbersFromFile, char *filename, int *originalIndex)
 	}
 	fclose(file);
 
-	printf("The numbers are:\n");
-	printArray(numbersFromFile, localCount);
 	printf("\nThere's a total of %d numbers.\n", localCount);
 
 	return localCount;
@@ -112,13 +98,11 @@ int readFromFile(int *numbersFromFile, char *filename, int *originalIndex)
 /*
 *Three sorting functions
 *Sorts the two arrays (the one with the integers and the one with the original indexes) simultaneously
-*Prints the sorted array
 */
 
 //Function that uses bubble sort
 void bubbleSort(int count, int *numbersFromFile, int *originalIndex)
 {
-	printf("\nBubble sort:\n");
 	for(int i = 0; i < count; i++)
 	{
 		for(int j = 0 ; j < count - 1; j++)
@@ -134,13 +118,11 @@ void bubbleSort(int count, int *numbersFromFile, int *originalIndex)
 			}
 		}
 	}
-	printArray(numbersFromFile, count);
 }
 
 //Function that uses selection sort
 void selectionSort(int count, int *numbersFromFile, int *originalIndex)
 {
-	printf("\nSelection sort:\n");
 	for(int i = 0; i < count; i++)
 	{
 		int min = i;
@@ -158,13 +140,11 @@ void selectionSort(int count, int *numbersFromFile, int *originalIndex)
 		numbersFromFile[min] = temp;
 		originalIndex[min] = tempIndex;
 	}
-	printArray(numbersFromFile, count);
 }
 
 //Function that uses insertion sort
 void insertionSort(int count, int *numbersFromFile, int *originalIndex)
 {
-	printf("\nInsertion sort:\n");
 	for(int i = 1 ; i < count; i++) 
 	{
    		int j = i;
@@ -179,7 +159,6 @@ void insertionSort(int count, int *numbersFromFile, int *originalIndex)
 			j--;
 		}
 	}
-	printArray(numbersFromFile, count);
 }
 
 /*
